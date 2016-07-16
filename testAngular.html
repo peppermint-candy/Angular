@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<script src="bower_components/angular/angular.js"></script>
+	<script type ='text/javascript'>
+		var myAppModule = angular.module('myApp',[]);
+		
+	</script>
+	<title></title>
+</head>
+<body>
+<!-- ng repeat loop through obj list -->
+	<div ng-init="students=[{name:'Mike',age:'34'},{name:'John',age:'24'},{name:'Trey',age:'24'},{name:'India',age:'24'}]" >
+		<ul>
+			<li ng-repeat="student in students" >{{student.name}}, {{student.age}} </li>
+		</ul>
+	</div>
+
+
+
+
+
+
+	<!-- ng repeat version -->
+	<!-- <div ng-init="students=['Mike','John','Trey','India']">
+		<ul>
+			<li ng-repeat="student in students">{{student}}</li>
+		</ul>
+	</div> -->
+
+ <!-- ng bind version -->
+<!--  <h3>{{123456*1243474 }}</h3>
+ <h3 ng-bind="123456*1243474"></h3> -->
+
+ <!--  -->
+
+
+
+</body>
+</html>

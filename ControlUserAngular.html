@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app ='app'>
+<head>
+	<style>
+		#display {
+			width: 500px;
+			min-height: 200px;
+			display: inline-block;
+			outline: 2px solid lightblue;
+			margin-bottom: 20px;
+		}
+	</style>
+
+	<script src = 'bower_components/angular/angular.js'></script>
+	<title>Controller and Directives</title>
+
+	<script type='text/javascript'>
+		var myApp = angular.module('app', []);
+		myApp.controller('usersController', function() {
+			this.users =  [
+					{firstname: "John", lastname: "Smith", language: "JavaScript"},
+					{firstname: "Ned", lastname: "Stark", language: "Python"},
+					{firstname: "Jon", lastname: "Snow", language: "JavaScript"},
+					{firstname: "Circie", lastname: "Lanister", language: "Ruby"},
+				];
+
+			this.addUser = function(){
+				this.users.push(this.newUser);
+				this.newUser = {};
+			}
+
+			this.delUser = function(person){
+				console.log(person);
+				var index = this.users.indexOf(person);
+				console.log(index)
+				this.users.splice(index,1);
+			}
+		});
+	</script>
+
+</head>
+<body>
+	<div ng-controller='usersController as userCtrl'>
+	<fieldset>
+		<legend>User Controller</legend>
+		<form>
+			<label>First Name:</label>
+			<input type="text" name="firstname" ng-model="userCtrl.newUser.firstname"><br><br>
+			<label>Last Name:</label>
+			<input type="text" name="lastname" ng-model='userCtrl.newUser.lastname'><br><br>
+			<label>Favorite Language:</label>
+			<input type="text" name="language" ng-model='userCtrl.newUser.language'><br><br>
+			<input type="submit" value="Create User" ng-click="userCtrl.addUser()"><br><br>
+		</form><br><br>
+
+		Search: <input type="text" ng-model="filter_name"><br><br>
+
+		<div id="display">
+			<table>
+				<thead>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Favorite Language</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in userCtrl.users | filter: filter_name">
+						<td> {{ user.firstname }} </td>
+						<td> {{ user.lastname }} </td>
+						<td> {{ user.language }} </td>
+						<td>
+							<form>
+								<input type="submit" value="Delete User" ng-click='userCtrl.delUser(user)'>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</fieldset>
+	</div>
+</body>
+</html>

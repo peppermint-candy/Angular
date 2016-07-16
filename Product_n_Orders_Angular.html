@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app = 'app'>
+<head>
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+
+		var app = angular.module('app', []);
+
+		app.factory('productFactory', function(){
+
+			var products = [];
+			var factory = {};
+
+			factory.getProducts = function(callback) {
+				callback(products);
+			}
+
+			factory.create = function(data, callback) {
+				products.push(data);
+				callback();
+			}
+
+			factory.delete = function(id, callback) {
+				products.splice(id, 1);
+				callback();
+			}
+
+			return factory;
+		});
+
+		app.controller('productController', ['$scope', 'productFactory', 
+			function ($scope, productFactory) {
+
+				productFactory.getProducts(function(data) {
+						$scope.products = data;
+						$scope.product = {};
+					});
+
+				$scope.index = function() {
+					productFactory.getProducts(function(data) {
+						$scope.products = data;
+						$scope.product = {};
+					});
+				}
+
+				$scope.create = function() {
+					productFactory.create($scope.product, $scope.index);
+				}
+
+				$scope.delete = function(id) {
+					productFactory.delete(id, $scope.index);
+				}
+			}
+		]);
+
+		app.controller('orderController', ['$scope', 'productFactory',
+			function($scope, productFactory) {
+
+				orderFactory.order(function() {
+					$scope.orders = data;
+					$scope.order = {};
+				})
+			}
+			])
+
+		</script>
+		<title>Product with Factory</title>
+		<style>
+			fieldset {
+				width: 500px;
+				height: 300px;
+				margin: 0 auto;
+			}
+
+			table {
+				margin: 0 auto;
+				width: 380px;
+
+			}
+
+			th{
+				border-bottom: 1px solid black;
+
+			}
+
+		</style>
+	</head>
+	<body>
+		<div ng-controller='productController'>
+			<fieldset>
+				<legend>Product Controllers</legend>
+				<form ng-submit="create();">
+					<label>Product Name:</label>
+					<input type="text" name="name" ng-model="product.name"><br><br>
+					<label>Product Price:</label>
+					<input type="text" name="price" ng-model='product.price'><br><br>
+					<input type="hidden" name="quantity" ng-model='product.quantity' >
+					<input type="submit" value="Add Product"><br><br>
+				</form><br><br>
+
+				<div id="display">
+					<table>
+						<thead>
+							<th>Product Name</th>
+							<th>Product Price</th>
+							<th>Actions</th>
+						</thead>
+						<tbody ng-repeat="product in products">
+							<tr>
+								<td> {{ product.name }} </td>
+								<td> {{ product.price | currency }} </td>
+								<td>	
+										<button ng-click='delete($index)'>Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>		
+			</fieldset>
+
+			<fieldset>
+				<legend>Orders Controller</legend>
+				<div id="display">
+					<table>
+						<thead>
+							<th>Product Name</th>
+							<th>Product Price</th>
+							<th>Qty Available</th>
+							<th>Actions</th>
+						</thead>
+						<tbody ng-repeat="product in products">
+							<tr>
+								<td> {{ product.name }} </td>
+								<td> {{ product.price | currency }} </td>
+								<td> {{ product.quantity }}</td>
+								<td>
+										<button ng-click='buy($index)'>Buy</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</fieldset>
+		</div>
+	</body>
+	</html>

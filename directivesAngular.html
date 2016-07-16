@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app ='app'>
+<head>
+	<style>
+		#display {
+			width: 300px;
+			min-height: 200px;
+			display: inline-block;
+			outline: 2px solid lightblue;
+			margin-bottom: 20px;
+		}
+	</style>
+
+	<script src = 'bower_components/angular/angular.js'></script>
+	<title>Controller and Directives</title>
+
+	<script type='text/javascript'>
+		var myApp = angular.module('app', []);
+		myApp.controller('myFood', function() {
+			this.foods =  [
+					{name: 'Salad'}, 
+					{name: 'Smootie'}, 
+					{name: 'Ice-Cream'}, 
+					{name: 'Cookie'}
+				];
+
+			this.addFood = function(){
+				this.foods.push(this.newFood);
+				this.newFood = {};
+			}
+		});
+	</script>
+
+</head>
+<body>
+	<div ng-controller='myFood as myFood'>
+		<div id="display">
+			<p ng-repeat="food in myFood.foods | filter: Null ">{{ food.name }}</p>			
+		</div>
+
+		<form>
+			<label>Favorite Food:</label>
+			<input type="text" name="food" ng-model="myFood.newFood.name">
+			<input type="submit" value="Add Food" ng-click="myFood.addFood()">
+		</form>
+
+		<label>Currently typing:</label>
+		<div ng-if="myFood.newFood.name">
+			<p>{{ myFood.newFood.name }}</p>
+		</div>
+		
+
+	</div>
+</body>
+</html>
