@@ -1,0 +1,21 @@
+{
+  "name": "Partials_Users_Solutions",
+  "homepage": "https://github.com/peppermint-candy/Angular",
+  "authors": [
+    "Mint <273greenst@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.7",
+    "angular": "^1.5.7"
+  }
+}

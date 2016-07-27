@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="angular/angular.js"></script>
+	<script src="angular-route/angular-route.js"></script>
+
+	<script>
+		var myApp = angular.module( 'myApp', ['ngRoute']);
+
+		myApp.config(function ($routeProvider) {
+			$routeProvider
+			.when('/', {
+				templateUrl: 'partials/partial1.html',
+			controller: 'partial1Controller'
+			})
+			.when ('/partial2', {
+				templateUrl: 'partials/partial2.html',
+			controller: 'partial2Controller'
+			})
+			.otherwise ({
+				redirectTo: '/'
+			});
+		});
+
+		myApp.controller('partial1Controller', function ($scope) {
+			$scope.sports = ['golf', 'basketball', 'hockey', 'tennis', 'football'];
+		});
+
+		myApp.controller('partial2Controller', function ($scope) {
+			$scope.message = 'We are using another controller';
+		});
+
+	</script>
+</head>
+<body>
+	<div ng-app = 'myApp'>
+		<a href="#/">Partial1</a> | <a href="#/partial2">Partial 2</a>
+		<div ng-view=""></div>
+	</div>
+</body>
+</html>

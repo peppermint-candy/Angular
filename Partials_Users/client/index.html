@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="angular/angular.js"></script>
+	<script src="angular-route/angular-route.js"></script>
+	<title></title>
+	<script>
+		var myApp = angular.module( 'myApp', ['ngRoute']);
+
+		myApp.config(function ($routeProvider) {
+			$routeProvider
+			.when('/', {
+				templateUrl: 'partials/customizeUsers.html',
+			controller: "customizeUsersController"
+			})
+			.when('/user' ,{
+				templateUrl: 'partials/userList.html',
+			controller: "userListController"
+			})
+			.otherwise ({
+				redirectTto: '/'
+			});
+		});
+
+		myApp.factory('usersFactory', function () {
+			var factory = {};
+			var users = [
+				{firstname: "John", lastname: "Smith", language: "JavaScript"},
+				{firstname: "Ned", lastname: "Stark", language: "Python"},
+				{firstname: "Jon", lastname: "Snow", language: "JavaScript"},
+				{firstname: "Circie", lastname: "Lanister", language: "Ruby"}
+			];
+
+			factory.index = function(callback) {
+				callback(users);
+			}
+
+			factory.addUser = function(data, callback) {
+				users.push(data);
+				callback();
+			}
+
+			factory.delete = function(id ,callback) {
+				users.splice(id, 1);
+				callback();
+			}
+
+			return factory;
+
+		});
+
+		myApp.controller('customizeUsersController', ['$scope', 'usersFactory',
+			function($scope, usersFactory) {
+
+				usersFactory.index(function(data) {
+					$scope.users = data;
+					$scope.user = {};
+				});
+
+				$scope.index = function() {
+					usersFactory.index = function(data) {
+						$scope.users = data;
+						$scope.user = {};
+					};
+				}
+
+				$scope.create = function() {
+					usersFactory.addUser($scope.newUser, $scope.index);
+				}
+
+				$scope.delete = function(id) {
+					usersFactory.delete(id, $scope.index);
+				}
+
+			}])
+
+		myApp.controller('userListController', ['$scope', 'usersFactory' ,
+			function($scope, usersFactory) {
+
+				usersFactory.index(function(data) {
+					$scope.users = data;
+					$scope.user = {};
+				});
+
+			}])
+
+	</script>
+</head>
+<body>
+	<div ng-app = 'myApp'>
+		<a href="#/">Customize Users</a> | <a href="#/user">User List</a>
+		<div ng-view = ""></div>
+	</div>
+</body>
+</html>

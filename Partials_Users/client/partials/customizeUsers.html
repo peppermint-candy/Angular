@@ -1,0 +1,59 @@
+	<style>
+		#display {
+			width: 720px;
+			min-height: 200px;
+			display: inline-block;
+			outline: 2px solid lightblue;
+			margin: 0 auto;
+			margin-bottom: 20px;
+		}
+
+		fieldset{
+			width: 750px;
+			margin: 0 auto;
+		}
+
+		table {
+			width: 700px
+		}
+
+	</style>
+
+<h1>Hello this is customize user page</h1>
+<div ng-controller='customizeUsersController'>
+	<fieldset>
+		<legend>User Controller</legend>
+		<form ng-submit="create();">
+			<label>First Name:</label>
+			<input type="text" name="firstname" ng-model="newUser.firstname"><br><br>
+			<label>Last Name:</label>
+			<input type="text" name="lastname" ng-model='newUser.lastname'><br><br>
+			<label>Favorite Language:</label>
+			<input type="text" name="language" ng-model='newUser.language'><br><br>
+			<input type="submit" value="Create User"><br><br>
+		</form><br><br>
+
+		<div id="display">
+			<table>
+				<thead>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Favorite Language</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in users">
+						<td> {{ user.firstname }} </td>
+						<td> {{ user.lastname }} </td>
+						<td> {{ user.language }} </td>
+						<td>
+							<form>
+								<input type="submit" value="Delete User" ng-click='delete($index)'>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</fieldset>
+</div>

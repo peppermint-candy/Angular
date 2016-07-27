@@ -1,0 +1,27 @@
+<h1>Players page</h1>
+<div ng-controller = "playersController">
+	<fieldset>
+	<legend>Players</legend>
+	<label>Name</label>
+	<form ng-submit="create();">
+		<input type="text" name="newPlayer">
+		<input type="submit" value="Add Player">
+	</form>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="player in players">
+				<td>{{ player.name }}</td>
+				<td>
+					<form ng-submit="delete($index);">
+						<input type="submit" value="Remove Player">
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</fieldset>
+</div>

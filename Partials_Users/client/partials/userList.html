@@ -1,0 +1,36 @@
+
+<style>
+	#display {
+		width: 720px;
+		margin: 0 auto;
+		min-height: 200px;
+		outline: 2px solid lightblue;
+	}
+
+	table {
+		width: 700px
+
+	}
+
+
+</style>
+
+<h1>This is user list page</h1>
+<div ng-controller = 'userListController'>
+	<div id="display">
+		<table>
+			<thead>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Favorite Language</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td> {{ user.firstname }} </td>
+					<td> {{ user.lastname }} </td>
+					<td> {{ user.language }} </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>		
+</div>
